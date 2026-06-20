@@ -1,0 +1,22 @@
+.list-words {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	font-size: 10px;
+
+	& > * {
+		flex-shrink: 0;
+	}
+
+	& .list-words--word {
+		display: inline-block;
+		max-width: 16ch;
+		padding: 2px 4px;
+		border-radius: 6px;
+		background-color: #2c2c2c;
+		color: #b6b8b9;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

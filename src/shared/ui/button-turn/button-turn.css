@@ -1,0 +1,33 @@
+.button-turn {
+	background-color: #444444;
+	width: 32px;
+	color: #b6b8b9;
+	transition:
+		background-color 0.15s ease,
+		color 0.15s ease;
+
+	&.button-turn_variant-left {
+		border-radius: 0 0 14px 0;
+	}
+
+	&.button-turn_variant-right {
+		border-radius: 0 0 0 14px;
+	}
+
+	& .button-turn--inner {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+}
+
+.button-turn:hover:not(:disabled) {
+	background-color: #515151;
+}
+
+.button-turn:disabled {
+	background-color: #3a3a3a;
+	color: #777777;
+	cursor: not-allowed;
+}

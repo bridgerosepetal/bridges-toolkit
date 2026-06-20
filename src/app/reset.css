@@ -1,0 +1,36 @@
+@layer base {
+	:where(*, *::before, *::after) {
+		box-sizing: border-box;
+	}
+
+	:where(html, body) {
+		margin: 0;
+		padding: 0;
+	}
+
+	:where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+		margin: 0;
+	}
+
+	:where(ul, ol) {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	:where(button, input, textarea, select) {
+		font: inherit;
+		color: inherit;
+	}
+
+	:where(button) {
+		background: none;
+		border: 0;
+		padding: 0;
+	}
+
+	:where(img, picture, svg, canvas) {
+		display: block;
+		max-width: 100%;
+	}
+}

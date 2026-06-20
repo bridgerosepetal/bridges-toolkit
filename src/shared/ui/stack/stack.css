@@ -1,0 +1,7 @@
+.stack {
+	& .stack--inner {
+		display: flex;
+		flex-direction: column;
+		padding: 14px;
+	}
+}

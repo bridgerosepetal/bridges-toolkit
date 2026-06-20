@@ -1,0 +1,12 @@
+.block-locs {
+	background-color: #2c2c2c;
+	border-radius: 8px;
+	width: fit-content;
+
+	& .block-locs--inner {
+		display: flex;
+		flex-direction: column;
+		row-gap: 2px;
+		padding: 8px;
+	}
+}

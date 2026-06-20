@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  "entry": [
+    "src/app/plugin/main.ts",
+    "src/app/UiEntry.ts"
+  ],
+  "ignoreUnresolvedImports": [
+    "!*.css",
+    "!**/*.css"
+  ],
+  "ignoreDependencies": [
+    "@figma/plugin-typings"
+  ],
+  "framework": [
+    {
+      "name": "create-figma-plugin",
+      "enablers": ["@create-figma-plugin/build"],
+      "configPatterns": [
+        "manifest.json",
+        "build-figma-plugin.*.cjs"
+      ],
+      "alwaysUsed": [
+        "src/**/*.css"
+      ],
+      "toolingDependencies": [
+        "@create-figma-plugin/build",
+        "@create-figma-plugin/tsconfig",
+        "@tailwindcss/cli",
+        "preact",
+        "tailwindcss",
+        "typescript"
+      ]
+    }
+  ]
+}

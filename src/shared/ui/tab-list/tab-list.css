@@ -1,0 +1,20 @@
+.tab-list {
+	min-width: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+
+	& .tab-list--inner {
+		display: flex;
+		padding: 4px;
+		height: 100%;
+		overflow-x: auto;
+		overflow-y: hidden;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+}
+
+.tab-list--inner::-webkit-scrollbar {
+	display: none;
+}

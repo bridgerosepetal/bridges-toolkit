@@ -1,0 +1,22 @@
+.icon-css-loc {
+	width: 16px;
+	aspect-ratio: 1 / 1;
+	height: 16px;
+	border-radius: 4px;
+	display: inline-block;
+
+	background-color: rebeccapurple;
+
+	& .icon-css-loc--inner {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		color: #ffffff;
+		pointer-events: none;
+		text-transform: uppercase;
+		font-size: 10px;
+		width: 100%;
+		height: 100%;
+		font-weight: 700;
+	}
+}

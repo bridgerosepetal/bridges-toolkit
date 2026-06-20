@@ -1,0 +1,32 @@
+.card-textlet {
+	background-color: #383838;
+	border-radius: 14px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+	& .card-textlet--head {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	& .card-textlet--title {
+		white-space: nowrap;
+		line-clamp: 1;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	& .card-textlet--inner {
+		display: flex;
+		flex-direction: column;
+		padding: 8px 14px;
+	}
+
+	& .card-textlet--body {
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+	}
+}

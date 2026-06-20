@@ -1,0 +1,27 @@
+:root {
+	color-scheme: dark;
+}
+
+body {
+	font-family: "JetBrains Mono", monospace;
+	color: #b6b8b9;
+	background-color: #2c2c2c;
+}
+
+.app-shell {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+	background: #2c2c2c;
+}
+
+.app-shell--page {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+}
+
+.app-shell--console {
+	flex: 0 0 auto;
+}

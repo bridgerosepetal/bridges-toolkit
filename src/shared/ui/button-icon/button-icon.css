@@ -1,0 +1,42 @@
+.button-icon {
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	border-radius: 10px;
+	border: 1px solid #444444;
+	background-color: #2c2c2c;
+	color: #b6b8b9;
+	cursor: pointer;
+
+	& .button-icon--icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 0;
+	}
+
+	& svg {
+		width: 16px;
+		height: 16px;
+		stroke-width: 2px;
+	}
+
+	&:hover {
+		color: #f5f5f5;
+		border-color: #5b5b5b;
+	}
+
+	&:focus-visible {
+		outline: 2px solid #a997ec;
+		outline-offset: 1px;
+	}
+}
+
+.button-icon_pressed {
+	border-color: #6f5dbd;
+	background-color: #352f4f;
+	color: #a997ec;
+}

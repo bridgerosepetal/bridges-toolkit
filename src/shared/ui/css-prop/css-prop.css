@@ -1,0 +1,18 @@
+.css-prop {
+	& .css-prop--inner {
+		display: inline-flex;
+		align-items: center;
+		column-gap: 4px;
+	}
+
+	& .css-prop--text {
+		font-size: 11px;
+	}
+
+	&.css-prop_underlined .css-prop--text {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+	}
+}
+

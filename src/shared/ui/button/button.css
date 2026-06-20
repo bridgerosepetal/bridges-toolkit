@@ -1,0 +1,33 @@
+.button {
+	border: 1px solid #dccfbe;
+	border-radius: 8px;
+	padding: 8px 12px;
+	cursor: pointer;
+	font-size: 12px;
+	transition: transform 0.12s ease;
+
+	&:hover {
+		transform: translateY(-1px);
+	}
+
+	/* These selectors are necessary */
+	& .button--label {
+		display: inline-block;
+	}
+
+	&.button_primary {
+		background: #2f6f4f;
+		color: #ffffff;
+		border-color: #2f6f4f;
+	}
+
+	&.button_secondary {
+		background: #f2e7d7;
+		color: #4b3627;
+	}
+
+	&.button_ghost {
+		background: #ffffff;
+		color: #4b3627;
+	}
+}

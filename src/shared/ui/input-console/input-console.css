@@ -1,0 +1,21 @@
+.input-console {
+	display: flex;
+	align-items: center;
+	color: #b6b8b9;
+
+	& .input-console--prefix {
+		padding: 2px 4px;
+	}
+
+	& .input-console--field {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		background: transparent;
+		color: #b6b8b9;
+		font-family: inherit;
+		font-size: 12px;
+		outline: none;
+		padding: 4px 4px 4px 0;
+	}
+}
