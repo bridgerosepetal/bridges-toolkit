@@ -1,5 +1,8 @@
 # Bridge's Toolkit
 
+<img width="413" height="427" alt="bridges-toolkit-logo 1" src="https://github.com/user-attachments/assets/61fad6b7-c4c8-4974-ad8a-601e66e0cdf4" />
+
+
 Bridges Toolkit is a Figma Desktop development plugin for reviewing typography and extracting text from selected frames.
 
 ## Features
