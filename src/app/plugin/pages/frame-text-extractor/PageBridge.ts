@@ -1,7 +1,4 @@
-import type {
-	MainToUiMessage,
-	UiToMainMessage,
-} from "@app/api/messages";
+import type { UiToMainMessage } from "@app/api/messages";
 import {
 	getFrameTextSnapshot,
 	type FrameTextSnapshot,

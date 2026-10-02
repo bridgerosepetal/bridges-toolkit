@@ -15,6 +15,11 @@ function createTextAuditPageBridge(
 ): PageBridge {
 	const { postToUi } = options;
 	const cache = new Map<string, Array<ExtractedTextNode>>();
+	let inspectorCache: {
+		pageId: string;
+		frameGroupCount: number;
+		nodes: Array<ExtractedTextNode>;
+	} | null = null;
 	let lastPostedSelectionKey: string | null = null;
 	let isSelectionLocked = false;
 
@@ -55,6 +60,36 @@ function createTextAuditPageBridge(
 		return nodes;
 	};
 
+	// Walking the whole page for marked frame groups is expensive, so the
+	// result is reused until the document or the current page changes.
+	const getInspectorNodes = (
+		options: { bypassCache?: boolean } = {},
+	): { frameGroupCount: number; nodes: Array<ExtractedTextNode> } => {
+		const pageId = figma.currentPage.id;
+
+		if (
+			options.bypassCache !== true &&
+			inspectorCache !== null &&
+			inspectorCache.pageId === pageId
+		) {
+			return inspectorCache;
+		}
+
+		const frameGroups = getMarkedFrameGroupNodes(figma.currentPage);
+		inspectorCache = {
+			pageId,
+			frameGroupCount: frameGroups.length,
+			nodes: getExtractedTextNodesFromSelection(frameGroups),
+		};
+		return inspectorCache;
+	};
+
+	const clearCaches = (): void => {
+		cache.clear();
+		inspectorCache = null;
+		lastPostedSelectionKey = null;
+	};
+
 	const postTextAuditNodes = (
 		postOptions: {
 			skipIfSameSelection?: boolean;
@@ -71,7 +106,9 @@ function createTextAuditPageBridge(
 			return;
 		}
 
-		const frameGroups = getMarkedFrameGroupNodes(figma.currentPage);
+		const inspector = getInspectorNodes({
+			bypassCache: postOptions.bypassCache,
+		});
 		const selectionNodes = getNodesForSelection(selection, {
 			bypassCache: postOptions.bypassCache,
 		});
@@ -79,11 +116,9 @@ function createTextAuditPageBridge(
 		postToUi({
 			type: "TEXT_AUDIT_NODES",
 			nodes: selectionNodes,
-			inspectorNodes: getUniqueExtractedTextNodes(
-				getExtractedTextNodesFromSelection(frameGroups),
-			),
+			inspectorNodes: inspector.nodes,
 			inspectorSelectionNodeIds: selectionNodes.map((node) => node.id),
-			frameGroupCount: frameGroups.length,
+			frameGroupCount: inspector.frameGroupCount,
 		});
 		postTextAuditFrameGroupMarkStatus();
 		lastPostedSelectionKey = selectionKey;
@@ -141,8 +176,7 @@ function createTextAuditPageBridge(
 			}
 		}
 
-		cache.clear();
-		lastPostedSelectionKey = null;
+		clearCaches();
 		postTextAuditNodes({ bypassCache: true });
 	};
 
@@ -181,8 +215,7 @@ function createTextAuditPageBridge(
 			postTextAuditNodes({ skipIfSameSelection: true });
 		},
 		onDocumentChange() {
-			cache.clear();
-			lastPostedSelectionKey = null;
+			clearCaches();
 			postTextAuditNodes();
 		},
 	};
@@ -226,19 +259,4 @@ function collectMarkedFrameGroupNodes(
 			collectMarkedFrameGroupNodes(child, target);
 		}
 	}
-}
-
-function getUniqueExtractedTextNodes(
-	nodes: Array<ExtractedTextNode>,
-): Array<ExtractedTextNode> {
-	const nodesById = new Map<string, ExtractedTextNode>();
-
-	for (const node of nodes) {
-		nodesById.set(
-			`${node.id}|${node.context?.frameGroupId ?? "__ungrouped__"}`,
-			node,
-		);
-	}
-
-	return Array.from(nodesById.values());
 }

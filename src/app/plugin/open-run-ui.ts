@@ -8,6 +8,10 @@ import { LISTED_PAGE_META } from "@app/pages/page-meta";
 import { RUN_UI_HEIGHT, RUN_UI_WIDTHS } from "@app/config/run-ui-size";
 import { createPageBridges } from "./pages/createPageBridges";
 
+// Figma emits `documentchange` for nearly every edit (e.g. each keystroke in a
+// text layer), so bursts are coalesced before pages re-read the document.
+const DOCUMENT_CHANGE_DEBOUNCE_MS = 150;
+
 export function openRunUi(): void {
 	showUI({
 		width: RUN_UI_WIDTHS.compact,
@@ -31,8 +35,15 @@ export function openRunUi(): void {
 	figma.on("currentpagechange", () => {
 		pageBridges[currentPage].onCurrentPageChange();
 	});
+	let documentChangeTimer: ReturnType<typeof setTimeout> | null = null;
 	figma.on("documentchange", () => {
-		pageBridges[currentPage].onDocumentChange();
+		if (documentChangeTimer !== null) {
+			clearTimeout(documentChangeTimer);
+		}
+		documentChangeTimer = setTimeout(() => {
+			documentChangeTimer = null;
+			pageBridges[currentPage].onDocumentChange();
+		}, DOCUMENT_CHANGE_DEBOUNCE_MS);
 	});
 
 	figma.ui.onmessage = (message: unknown) => {

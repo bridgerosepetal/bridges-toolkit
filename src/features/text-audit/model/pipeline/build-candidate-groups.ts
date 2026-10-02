@@ -94,6 +94,7 @@ function findBestGroup(
 		const score = calculateStringSimilarity(
 			member.normalizedText,
 			group.representativeNormalizedText,
+			config.similarityThreshold,
 		);
 		if (score < config.similarityThreshold) {
 			continue;

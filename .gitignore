@@ -17,6 +17,9 @@
 !.vscode/
 !.vscode/settings.json
 
+!.github/
+!.github/**
+
 !src/
 !src/**
 

@@ -46,6 +46,8 @@ This plugin is intended for Figma Desktop development use only.
 - `pnpm build`: type-check and build the plugin into `build/`
 - `pnpm watch`: rebuild on changes while developing
 - `pnpm check`: run the Create Figma Plugin type check
+- `pnpm lint`: lint the TypeScript sources with ESLint
+- `pnpm test`: run unit tests with Vitest (`pnpm test:watch` to re-run on changes)
 - `pnpm tailwind:build`: regenerate Tailwind output CSS
 - `pnpm tailwind:watch`: regenerate Tailwind output CSS on changes
 
