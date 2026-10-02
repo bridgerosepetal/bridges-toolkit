@@ -1,6 +1,6 @@
 import type { FrameTextSnapshot } from "@features/selection-inspector/model/get-frame-text-snapshot";
 import type { ExtractedTextNode } from "@features/text-audit/model/types";
-import type { PageId } from "@shared/config/PageId";
+import { isPageId, type PageId } from "@shared/config/PageId";
 
 export type UiToMainMessage =
 	| {
@@ -57,14 +57,26 @@ export function isUiToMainMessage(value: unknown): value is UiToMainMessage {
 		return false;
 	}
 
-	const { type } = value as { type: unknown };
-	return (
-		type === "SET_ACTIVE_PAGE" ||
-		type === "RESIZE_PLUGIN_UI" ||
-		type === "REQUEST_FRAME_TEXT_SNAPSHOT" ||
-		type === "REQUEST_TEXT_AUDIT_NODES" ||
-		type === "SET_TEXT_AUDIT_SELECTION_LOCK" ||
-		type === "TOGGLE_TEXT_AUDIT_FRAME_GROUP_MARKS" ||
-		type === "CLOSE_PLUGIN"
-	);
+	const message = value as Record<string, unknown>;
+	switch (message.type) {
+		case "SET_ACTIVE_PAGE":
+			return typeof message.page === "string" && isPageId(message.page);
+		case "RESIZE_PLUGIN_UI":
+			return (
+				isPositiveSize(message.width) && isPositiveSize(message.height)
+			);
+		case "SET_TEXT_AUDIT_SELECTION_LOCK":
+			return typeof message.isLocked === "boolean";
+		case "REQUEST_FRAME_TEXT_SNAPSHOT":
+		case "REQUEST_TEXT_AUDIT_NODES":
+		case "TOGGLE_TEXT_AUDIT_FRAME_GROUP_MARKS":
+		case "CLOSE_PLUGIN":
+			return true;
+		default:
+			return false;
+	}
+}
+
+function isPositiveSize(value: unknown): value is number {
+	return typeof value === "number" && Number.isFinite(value) && value > 0;
 }
