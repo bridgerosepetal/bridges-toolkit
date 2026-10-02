@@ -7,14 +7,15 @@ import {
 	setTextAuditFrameGroupId,
 } from "@features/text-audit/api/figma/plugin-data";
 import type { CreatePageBridgeOptions, PageBridge } from "../PageBridge";
-
-const MAX_CACHE_SIZE = 10;
+import { createSelectionCache, getSelectionKey } from "../selection-cache";
 
 function createTextAuditPageBridge(
 	options: CreatePageBridgeOptions,
 ): PageBridge {
 	const { postToUi } = options;
-	const cache = new Map<string, Array<ExtractedTextNode>>();
+	const selectionCache = createSelectionCache(
+		getExtractedTextNodesFromSelection,
+	);
 	let inspectorCache: {
 		pageId: string;
 		frameGroupCount: number;
@@ -22,44 +23,6 @@ function createTextAuditPageBridge(
 	} | null = null;
 	let lastPostedSelectionKey: string | null = null;
 	let isSelectionLocked = false;
-
-	const getSelectionKey = (selection: readonly SceneNode[]): string => {
-		if (selection.length === 0) {
-			return "__empty__";
-		}
-
-		return selection
-			.map((node) => node.id)
-			.sort()
-			.join("|");
-	};
-
-	const getNodesForSelection = (
-		selection: readonly SceneNode[],
-		options: { bypassCache?: boolean } = {},
-	): Array<ExtractedTextNode> => {
-		const key = getSelectionKey(selection);
-		const cached =
-			options.bypassCache === true ? undefined : cache.get(key);
-
-		if (cached !== undefined) {
-			cache.delete(key);
-			cache.set(key, cached);
-			return cached;
-		}
-
-		const nodes = getExtractedTextNodesFromSelection(selection);
-		cache.set(key, nodes);
-
-		if (cache.size > MAX_CACHE_SIZE) {
-			const oldestKey = cache.keys().next().value as string | undefined;
-			if (oldestKey !== undefined) {
-				cache.delete(oldestKey);
-			}
-		}
-
-		return nodes;
-	};
 
 	// Walking the whole page for marked frame groups is expensive, so the
 	// result is reused until the document or the current page changes.
@@ -86,7 +49,7 @@ function createTextAuditPageBridge(
 	};
 
 	const clearCaches = (): void => {
-		cache.clear();
+		selectionCache.clear();
 		inspectorCache = null;
 		lastPostedSelectionKey = null;
 	};
@@ -110,7 +73,7 @@ function createTextAuditPageBridge(
 		const inspector = getInspectorNodes({
 			bypassCache: postOptions.bypassCache,
 		});
-		const selectionNodes = getNodesForSelection(selection, {
+		const selectionNodes = selectionCache.get(selection, {
 			bypassCache: postOptions.bypassCache,
 		});
 
