@@ -15,6 +15,7 @@
 !pnpm-lock.yaml
 !tailwind.config.cjs
 !tsconfig.json
+!vitest.config.mjs
 
 !.vscode/
 !.vscode/settings.json
