@@ -24,13 +24,13 @@ export function openRunUi(): void {
 		pageBridges[currentPage].enter();
 	};
 
-	setCurrentPage(initialPage);
+	reportErrorsToUi(() => setCurrentPage(initialPage));
 
 	figma.on("selectionchange", () => {
-		pageBridges[currentPage].onSelectionChange();
+		reportErrorsToUi(() => pageBridges[currentPage].onSelectionChange());
 	});
 	figma.on("currentpagechange", () => {
-		pageBridges[currentPage].onCurrentPageChange();
+		reportErrorsToUi(() => pageBridges[currentPage].onCurrentPageChange());
 	});
 	let documentChangeTimer: ReturnType<typeof setTimeout> | null = null;
 	figma.on("documentchange", () => {
@@ -39,11 +39,11 @@ export function openRunUi(): void {
 		}
 		documentChangeTimer = setTimeout(() => {
 			documentChangeTimer = null;
-			pageBridges[currentPage].onDocumentChange();
+			reportErrorsToUi(() => pageBridges[currentPage].onDocumentChange());
 		}, DOCUMENT_CHANGE_DEBOUNCE_MS);
 	});
 
-	figma.ui.onmessage = (message: unknown) => {
+	const handleUiMessage = (message: unknown): void => {
 		if (!isUiToMainMessage(message)) {
 			console.warn("[plugin] Ignored unknown UI message", message);
 			return;
@@ -66,8 +66,28 @@ export function openRunUi(): void {
 				console.warn("[plugin] Unhandled UI message", message);
 		}
 	};
+
+	figma.ui.onmessage = (message: unknown) => {
+		reportErrorsToUi(() => handleUiMessage(message));
+	};
 }
 
 function postToUi(message: MainToUiMessage): void {
 	figma.ui.postMessage(message);
+}
+
+// Keeps the plugin alive after a failure in an event handler and surfaces the
+// error in the active page's status line instead.
+function reportErrorsToUi(handler: () => void): void {
+	try {
+		handler();
+	} catch (error) {
+		console.error("[plugin] Event handler failed", error);
+		postToUi({
+			type: "ERROR",
+			message: `Something went wrong: ${
+				error instanceof Error ? error.message : String(error)
+			}`,
+		});
+	}
 }
