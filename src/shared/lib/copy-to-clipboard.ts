@@ -3,10 +3,18 @@ export async function copyTextToClipboard(text: string): Promise<void> {
 		navigator.clipboard &&
 		typeof navigator.clipboard.writeText === "function"
 	) {
-		await navigator.clipboard.writeText(text);
-		return;
+		try {
+			await navigator.clipboard.writeText(text);
+			return;
+		} catch {
+			// Figma's plugin iframe denies the Clipboard API; fall through.
+		}
 	}
 
+	copyWithExecCommand(text);
+}
+
+function copyWithExecCommand(text: string): void {
 	const textArea = document.createElement("textarea");
 	textArea.value = text;
 	textArea.setAttribute("readonly", "");
