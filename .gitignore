@@ -6,6 +6,7 @@
 !.fallowrc.json
 !.prettierrc
 !.prettierignore
+!.git-blame-ignore-revs
 !LICENSE
 !README.md
 !build-figma-plugin.ui.cjs

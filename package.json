@@ -49,6 +49,8 @@
     "watch": "build-figma-plugin --typecheck --watch",
     "check": "build-figma-plugin --typecheck",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
