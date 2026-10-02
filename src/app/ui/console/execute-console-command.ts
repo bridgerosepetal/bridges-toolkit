@@ -131,7 +131,11 @@ ejm ~~~~~|xx|~~~~~~~~~~~~~|x|~~~ ~~  ~   ~
 		},
 	};
 
-	const handler = handlers[key];
+	// Own keys only, so input like "constructor" or "toString" doesn't resolve
+	// to an Object.prototype method.
+	const handler = Object.prototype.hasOwnProperty.call(handlers, key)
+		? handlers[key]
+		: undefined;
 	if (handler === undefined) {
 		return {
 			outputs: [{ text: `Unknown command: ${name}`, level: "error" }],
