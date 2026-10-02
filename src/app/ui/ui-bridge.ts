@@ -9,11 +9,6 @@ export function createUiBridge(): UiBridge {
 				page,
 			});
 		},
-		requestSelectionSnapshot() {
-			postToPlugin({
-				type: "REQUEST_SELECTION_SNAPSHOT",
-			});
-		},
 		requestFrameTextSnapshot() {
 			postToPlugin({
 				type: "REQUEST_FRAME_TEXT_SNAPSHOT",
@@ -72,7 +67,6 @@ function isMainToUiMessage(value: unknown): value is MainToUiMessage {
 
 	const typed = value as { type: unknown };
 	return (
-		typed.type === "SELECTION_SNAPSHOT" ||
 		typed.type === "FRAME_TEXT_SNAPSHOT" ||
 		typed.type === "TEXT_AUDIT_NODES" ||
 		typed.type === "TEXT_AUDIT_FRAME_GROUP_MARK_STATUS" ||

@@ -2,7 +2,6 @@ import type { PageId } from "../config/PageId";
 
 export type UiBridge = {
 	setActivePage: (page: PageId) => void;
-	requestSelectionSnapshot: () => void;
 	requestFrameTextSnapshot: () => void;
 	requestTextAuditNodes: () => void;
 	setTextAuditSelectionLock: (isLocked: boolean) => void;

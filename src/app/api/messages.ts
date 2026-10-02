@@ -1,5 +1,4 @@
 import type { FrameTextSnapshot } from "@features/selection-inspector/model/get-frame-text-snapshot";
-import type { SelectionSnapshot } from "@features/selection-inspector/model/get-selection-snapshot";
 import type { ExtractedTextNode } from "@features/text-audit/model/types";
 import type { PageId } from "@shared/config/PageId";
 
@@ -12,9 +11,6 @@ export type UiToMainMessage =
 			type: "RESIZE_PLUGIN_UI";
 			width: number;
 			height: number;
-	  }
-	| {
-			type: "REQUEST_SELECTION_SNAPSHOT";
 	  }
 	| {
 			type: "REQUEST_FRAME_TEXT_SNAPSHOT";
@@ -34,10 +30,6 @@ export type UiToMainMessage =
 	  };
 
 export type MainToUiMessage =
-	| {
-			type: "SELECTION_SNAPSHOT";
-			snapshot: SelectionSnapshot;
-	  }
 	| {
 			type: "FRAME_TEXT_SNAPSHOT";
 			snapshot: FrameTextSnapshot;
@@ -69,7 +61,6 @@ export function isUiToMainMessage(value: unknown): value is UiToMainMessage {
 	return (
 		type === "SET_ACTIVE_PAGE" ||
 		type === "RESIZE_PLUGIN_UI" ||
-		type === "REQUEST_SELECTION_SNAPSHOT" ||
 		type === "REQUEST_FRAME_TEXT_SNAPSHOT" ||
 		type === "REQUEST_TEXT_AUDIT_NODES" ||
 		type === "SET_TEXT_AUDIT_SELECTION_LOCK" ||
