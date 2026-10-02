@@ -8,7 +8,9 @@ export function refineDuplicateCandidates(
 	groups: Array<CandidateGroup>,
 ): Array<RefinedCandidateGroup> {
 	return groups.map((group) => {
-		const members = [...group.members].sort(compareMembersForDuplicateRanking);
+		const members = [...group.members].sort(
+			compareMembersForDuplicateRanking,
+		);
 		const duplicateCounters = new Map<string, number>();
 
 		const refinedMembers: Array<RefinedCandidateMember> = members.map(

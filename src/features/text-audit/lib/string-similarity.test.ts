@@ -34,9 +34,9 @@ describe("calculateStringSimilarity", () => {
 	});
 
 	it("returns 0 early when the threshold cannot be reached", () => {
-		expect(calculateStringSimilarity("ok", "a much longer label", 0.9)).toBe(
-			0,
-		);
+		expect(
+			calculateStringSimilarity("ok", "a much longer label", 0.9),
+		).toBe(0);
 		expect(calculateStringSimilarity("abcdefghij", "klmnopqrst", 0.9)).toBe(
 			0,
 		);

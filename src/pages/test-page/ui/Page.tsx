@@ -16,13 +16,21 @@ export function TestPage(props: Props): React.JSX.Element {
 
 			<section className="selection-panel--summary">
 				<div className="selection-panel--summary-row">
-					<span className="selection-panel--summary-label">Page key</span>
-					<span className="selection-panel--summary-value">test-page</span>
+					<span className="selection-panel--summary-label">
+						Page key
+					</span>
+					<span className="selection-panel--summary-value">
+						test-page
+					</span>
 				</div>
 			</section>
 
 			<div className="selection-panel--actions">
-				<Button type="button" variant="secondary" onClick={props.onBack}>
+				<Button
+					type="button"
+					variant="secondary"
+					onClick={props.onBack}
+				>
 					Back
 				</Button>
 				<Button type="button" variant="ghost" onClick={props.onClose}>

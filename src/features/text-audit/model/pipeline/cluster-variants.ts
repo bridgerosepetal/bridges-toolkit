@@ -1,4 +1,7 @@
-import { createStyleSignature, pickSupportedStyle } from "../../lib/style-signature";
+import {
+	createStyleSignature,
+	pickSupportedStyle,
+} from "../../lib/style-signature";
 import type {
 	RefinedCandidateGroup,
 	ResolvedTextAuditConfig,
@@ -20,7 +23,10 @@ export function clusterVariantsWithinTextlets(
 				const instance = toTextletInstance(member);
 				instances.push(instance);
 
-				const styleSignature = createStyleSignature(member.node.style, config);
+				const styleSignature = createStyleSignature(
+					member.node.style,
+					config,
+				);
 				const existingVariant = variantMap.get(styleSignature);
 
 				if (existingVariant !== undefined) {

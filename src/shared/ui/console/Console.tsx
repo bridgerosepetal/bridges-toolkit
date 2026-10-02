@@ -42,7 +42,9 @@ export function Console(props: Props): React.JSX.Element {
 			<div ref={listRef} className={className.element("list")}>
 				{props.lines.map((line) => {
 					if (line.type === "output") {
-						return <MessageOutput key={line.id} text={line.value} />;
+						return (
+							<MessageOutput key={line.id} text={line.value} />
+						);
 					}
 
 					return (

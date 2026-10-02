@@ -29,13 +29,22 @@ export function TextAuditSummary(props: Props): React.JSX.Element {
 				<CardContent className="flex flex-col gap-3">
 					<Separator />
 					<div className="grid grid-cols-4 gap-2">
-						<Stat label="Textlets" value={props.model.summary.totalTextlets} />
-						<Stat label="Variants" value={props.model.summary.totalVariants} />
+						<Stat
+							label="Textlets"
+							value={props.model.summary.totalTextlets}
+						/>
+						<Stat
+							label="Variants"
+							value={props.model.summary.totalVariants}
+						/>
 						<Stat
 							label="Variant Pairs"
 							value={props.model.summary.totalVariantPairings}
 						/>
-						<Stat label="Instances" value={props.model.summary.totalInstances} />
+						<Stat
+							label="Instances"
+							value={props.model.summary.totalInstances}
+						/>
 						<Stat
 							label="Threshold"
 							value={props.model.summary.similarityThreshold}

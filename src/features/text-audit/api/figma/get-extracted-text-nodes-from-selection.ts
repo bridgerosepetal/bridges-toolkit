@@ -30,11 +30,7 @@ export function getExtractedTextNodesFromSelection(
 
 	for (const node of selection) {
 		const scopedFrameGroupNode = getScopedFrameGroupNode(node);
-		collectTextNodeSources(
-			node,
-			sources,
-			scopedFrameGroupNode,
-		);
+		collectTextNodeSources(node, sources, scopedFrameGroupNode);
 	}
 
 	return getUniqueExtractedTextNodes(sources.map(toExtractedTextNode)).sort(
@@ -89,7 +85,9 @@ function getUniqueExtractedTextNodes(
 	return Array.from(nodesByScope.values());
 }
 
-function toExtractedTextNode(source: ExtractedTextNodeSource): ExtractedTextNode {
+function toExtractedTextNode(
+	source: ExtractedTextNodeSource,
+): ExtractedTextNode {
 	const { textNode } = source;
 	const frameNode = findFrameLikeAncestor(textNode) ?? textNode;
 	const rootFrameNode = findRootFrameLikeAncestor(textNode) ?? frameNode;
@@ -135,14 +133,18 @@ function toExtractedTextNode(source: ExtractedTextNodeSource): ExtractedTextNode
 				frameGroupNode !== null &&
 				hasFrameGeometry(frameGroupNode) &&
 				frameGroupPosition !== null
-					? (textPosition.x - frameGroupPosition.x + textNode.width / 2) /
+					? (textPosition.x -
+							frameGroupPosition.x +
+							textNode.width / 2) /
 						Math.max(frameGroupNode.width, 1)
 					: undefined,
 			frameGroupCenterYRatio:
 				frameGroupNode !== null &&
 				hasFrameGeometry(frameGroupNode) &&
 				frameGroupPosition !== null
-					? (textPosition.y - frameGroupPosition.y + textNode.height / 2) /
+					? (textPosition.y -
+							frameGroupPosition.y +
+							textNode.height / 2) /
 						Math.max(frameGroupNode.height, 1)
 					: undefined,
 			frameGroupTreeDepth:
@@ -244,7 +246,11 @@ function getTreeDepthFromAncestor(
 	let depth = 0;
 	let current: BaseNode | null = node;
 
-	while (current !== null && current !== ancestor && current.type !== "PAGE") {
+	while (
+		current !== null &&
+		current !== ancestor &&
+		current.type !== "PAGE"
+	) {
 		current = current.parent;
 		depth += 1;
 	}
@@ -263,7 +269,11 @@ function buildParentPath(
 	const names: Array<string> = [];
 	let current: BaseNode | null = textNode.parent;
 
-	while (current !== null && current !== frameNode && current.type !== "PAGE") {
+	while (
+		current !== null &&
+		current !== frameNode &&
+		current.type !== "PAGE"
+	) {
 		if ("name" in current && typeof current.name === "string") {
 			names.push(current.name);
 		}

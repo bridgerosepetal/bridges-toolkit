@@ -1,7 +1,4 @@
-import type {
-	MainToUiMessage,
-	UiToMainMessage,
-} from "@app/api/messages";
+import type { MainToUiMessage, UiToMainMessage } from "@app/api/messages";
 
 export type CreatePageBridgeOptions = {
 	postToUi: (message: MainToUiMessage) => void;

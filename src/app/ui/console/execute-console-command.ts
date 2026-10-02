@@ -18,10 +18,7 @@ type CommandResult = {
 	cleared: boolean;
 };
 
-type CommandHandler = (
-	args: Array<string>,
-	context: Context,
-) => CommandResult;
+type CommandHandler = (args: Array<string>, context: Context) => CommandResult;
 
 export function executeConsoleCommand(
 	command: string,
@@ -103,35 +100,35 @@ ejm ~~~~~|xx|~~~~~~~~~~~~~|x|~~~ ~~  ~   ~
 					},
 				],
 				cleared: false,
-			}
+			};
 		},
 		rose() {
 			return {
 				outputs: [
-				{
-					text: String.raw`
+					{
+						text: String.raw`
     _,--._.-,
    /\_r-,\_ )
 .-.) _;='_/ (.;
  \ \'     \/S )
   L.'-. _.'|-'
- <_${'`'}-'\'_.'/
-   ${'`'}'-._( \
+ <_${"`"}-'\'_.'/
+   ${"`"}'-._( \
     ___   \\,      ___
     \ .'-. \\   .-'_. /
      '._' '.\\/.-'_.'
-        '--${'`'}${'`'}\('--'
+        '--${"`"}${"`"}\('--'
         snd   \\
-              ${'`'}\\,
+              ${"`"}\\,
                 \|
 
 `,
-					level: "info",
-				},
+						level: "info",
+					},
 				],
 				cleared: false,
-			}
-			}
+			};
+		},
 	};
 
 	const handler = handlers[key];

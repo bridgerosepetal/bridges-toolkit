@@ -51,15 +51,13 @@ function EmptyStateDescription({
 	return (
 		<div
 			data-slot="empty-state-description"
-			className={cn("max-w-64 text-xs/relaxed text-muted-foreground", className)}
+			className={cn(
+				"max-w-64 text-xs/relaxed text-muted-foreground",
+				className,
+			)}
 			{...props}
 		/>
 	);
 }
 
-export {
-	EmptyState,
-	EmptyStateDescription,
-	EmptyStateHeader,
-	EmptyStateTitle,
-};
+export { EmptyState, EmptyStateDescription, EmptyStateHeader, EmptyStateTitle };

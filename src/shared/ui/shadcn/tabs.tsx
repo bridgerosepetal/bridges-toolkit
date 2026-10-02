@@ -21,7 +21,10 @@ function useTabsContext(componentName: string): TabsContextValue {
 	return context;
 }
 
-type TabsProps = Omit<React.ComponentProps<"div">, "defaultValue" | "onChange"> & {
+type TabsProps = Omit<
+	React.ComponentProps<"div">,
+	"defaultValue" | "onChange"
+> & {
 	defaultValue: TabsValue;
 	value?: TabsValue;
 	onValueChange?: (value: TabsValue) => void;

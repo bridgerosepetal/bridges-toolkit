@@ -4,9 +4,7 @@ import type { PageController, Render } from "@shared/lib/PageController";
 import type { PageId } from "@shared/config/PageId";
 import type { RunUiSize } from "@app/config/run-ui-size";
 import { PAGE_CONFIG as FRAME_TEXT_EXTRACTOR_PAGE_CONFIG } from "@pages/frame-text-extractor/ui/page.config";
-import {
-	createPageController as createFrameTextExtractorPageController,
-} from "@pages/frame-text-extractor/ui/PageController";
+import { createPageController as createFrameTextExtractorPageController } from "@pages/frame-text-extractor/ui/PageController";
 import { FrameTextExtractorPage } from "@pages/frame-text-extractor/ui/Page";
 import { PAGE_CONFIG as INDEX_PAGE_CONFIG } from "@pages/index/ui/page.config";
 import { createPageController as createIndexPageController } from "@pages/index/ui/PageController";
@@ -67,7 +65,6 @@ function createIndexRuntime(): UiPageRuntime {
 	};
 }
 
-
 function createFrameTextExtractorRuntime(bridge: UiBridge): UiPageRuntime {
 	const controller = createFrameTextExtractorPageController(bridge);
 
@@ -91,7 +88,8 @@ function createFrameTextExtractorRuntime(bridge: UiBridge): UiPageRuntime {
 }
 
 function createTextAuditRuntime(bridge: UiBridge): UiPageRuntime {
-	const controller: TextAuditController = createTextAuditPageController(bridge);
+	const controller: TextAuditController =
+		createTextAuditPageController(bridge);
 
 	return {
 		id: TEXT_AUDIT_PAGE_CONFIG.id,
@@ -134,9 +132,7 @@ function createTestPageRuntime(): UiPageRuntime {
 		renderPage(context) {
 			return (
 				<TestPage
-					onBack={() =>
-						context.onGoToPage(INDEX_PAGE_CONFIG.id)
-					}
+					onBack={() => context.onGoToPage(INDEX_PAGE_CONFIG.id)}
 					onClose={context.onClose}
 				/>
 			);

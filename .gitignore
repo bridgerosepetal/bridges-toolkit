@@ -5,6 +5,7 @@
 !.eslintrc.cjs
 !.fallowrc.json
 !.prettierrc
+!.prettierignore
 !LICENSE
 !README.md
 !build-figma-plugin.ui.cjs

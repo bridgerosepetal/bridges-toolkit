@@ -3,10 +3,7 @@ import { executeConsoleCommand } from "./console/execute-console-command";
 import type { PageId } from "@shared/config/PageId";
 import { LISTED_PAGE_META } from "@app/pages/page-meta";
 import { createUiPageRuntimes } from "@app/pages/page-ui-registry";
-import type {
-	ConsoleLine,
-	InputConsoleLine,
-} from "@shared/ui/console/Console";
+import type { ConsoleLine, InputConsoleLine } from "@shared/ui/console/Console";
 import {
 	RUN_UI_HEIGHT,
 	RUN_UI_WIDTHS,
@@ -100,7 +97,8 @@ export default function renderRunUi(rootNode: HTMLElement): void {
 				state.console.historyIndex -= 1;
 			}
 
-			activeLine.value = state.console.history[state.console.historyIndex];
+			activeLine.value =
+				state.console.history[state.console.historyIndex];
 			render();
 			return;
 		}
@@ -111,7 +109,8 @@ export default function renderRunUi(rootNode: HTMLElement): void {
 
 		if (state.console.historyIndex < state.console.history.length - 1) {
 			state.console.historyIndex += 1;
-			activeLine.value = state.console.history[state.console.historyIndex];
+			activeLine.value =
+				state.console.history[state.console.historyIndex];
 		} else {
 			state.console.historyIndex = null;
 			activeLine.value = state.console.draftValue;
@@ -234,7 +233,10 @@ export default function renderRunUi(rootNode: HTMLElement): void {
 	};
 
 	bridge.onMessage((message) => {
-		pageRuntimes[state.currentPage].controller.handleMessage(message, render);
+		pageRuntimes[state.currentPage].controller.handleMessage(
+			message,
+			render,
+		);
 	});
 
 	render();

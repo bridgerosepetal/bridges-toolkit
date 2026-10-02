@@ -1,7 +1,4 @@
-import {
-	type PageController,
-	type Render,
-} from "@shared/lib/PageController";
+import { type PageController, type Render } from "@shared/lib/PageController";
 import type { UiBridge } from "@shared/api/UiBridge";
 import type { ExtractedTextNode } from "@features/text-audit/model/types";
 import type { SupportedTextAuditStylePropertyName } from "@features/text-audit/model/types";
@@ -81,9 +78,7 @@ const EMPTY_INSPECTOR_VIEW_MODEL: TextAuditPageViewModel = {
 	textlets: [],
 };
 
-function createTextAuditController(
-	bridge: UiBridge,
-): Controller {
+function createTextAuditController(bridge: UiBridge): Controller {
 	const state: State = {
 		hasRequestedOnce: false,
 		model: EMPTY_VIEW_MODEL,
@@ -183,9 +178,12 @@ function createTextAuditController(
 			return;
 		}
 
-		state.inspectorModel = mapTextAuditResultToPageViewModel(filteredResult, {
-			status: `Matched ${filteredResult.stats.totalTextlets} textlets from ${frameGroupCount} frame groups.`,
-		});
+		state.inspectorModel = mapTextAuditResultToPageViewModel(
+			filteredResult,
+			{
+				status: `Matched ${filteredResult.stats.totalTextlets} textlets from ${frameGroupCount} frame groups.`,
+			},
+		);
 	};
 
 	const requestNodes = (render: Render, status: string): void => {
@@ -203,7 +201,10 @@ function createTextAuditController(
 			if (state.hasRequestedOnce) {
 				return;
 			}
-			requestNodes(render, "Loading text nodes from current selection...");
+			requestNodes(
+				render,
+				"Loading text nodes from current selection...",
+			);
 		},
 		handleMessage(message, render) {
 			const pageMessage = message as PageMessage;
@@ -266,7 +267,10 @@ function createTextAuditController(
 		getActions(render) {
 			return {
 				onRefresh() {
-					requestNodes(render, "Refreshing text audit from current selection...");
+					requestNodes(
+						render,
+						"Refreshing text audit from current selection...",
+					);
 				},
 				onSetSelectionLocked(isLocked) {
 					state.isSelectionLocked = isLocked;
@@ -277,7 +281,8 @@ function createTextAuditController(
 					bridge.toggleTextAuditFrameGroupMarks();
 				},
 				onSetPropertyEnabled(propertyName, isEnabled) {
-					const hasProperty = state.selectedPropertyNames.includes(propertyName);
+					const hasProperty =
+						state.selectedPropertyNames.includes(propertyName);
 					if (isEnabled === hasProperty) {
 						return;
 					}

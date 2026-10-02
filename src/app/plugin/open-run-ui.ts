@@ -1,8 +1,5 @@
 import { showUI } from "@create-figma-plugin/utilities";
-import {
-	type MainToUiMessage,
-	isUiToMainMessage,
-} from "@app/api/messages";
+import { type MainToUiMessage, isUiToMainMessage } from "@app/api/messages";
 import type { PageId } from "@shared/config/PageId";
 import { LISTED_PAGE_META } from "@app/pages/page-meta";
 import { RUN_UI_HEIGHT, RUN_UI_WIDTHS } from "@app/config/run-ui-size";

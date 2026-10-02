@@ -315,10 +315,14 @@ function serializeNodeWithinBudget(
 
 	for (let index = 0; index < node.children.length; index += 1) {
 		const child = node.children[index];
-		const currentNode = applyChildrenAndTruncation(richNode, includedChildren, {
-			directChildrenOmitted: 0,
-			descendantContentTruncated,
-		});
+		const currentNode = applyChildrenAndTruncation(
+			richNode,
+			includedChildren,
+			{
+				directChildrenOmitted: 0,
+				descendantContentTruncated,
+			},
+		);
 		const remainingBudget = Math.max(
 			0,
 			budgetBytes - estimateJsonBytes(currentNode),
@@ -345,11 +349,15 @@ function serializeNodeWithinBudget(
 		}
 
 		const candidateChildren = [...includedChildren, childResult.node];
-		const candidateNode = applyChildrenAndTruncation(richNode, candidateChildren, {
-			directChildrenOmitted: 0,
-			descendantContentTruncated:
-				descendantContentTruncated || childResult.wasTruncated,
-		});
+		const candidateNode = applyChildrenAndTruncation(
+			richNode,
+			candidateChildren,
+			{
+				directChildrenOmitted: 0,
+				descendantContentTruncated:
+					descendantContentTruncated || childResult.wasTruncated,
+			},
+		);
 		if (estimateJsonBytes(candidateNode) > budgetBytes) {
 			return {
 				node: applyChildrenAndTruncation(richNode, includedChildren, {
@@ -402,7 +410,11 @@ function createFullNodeData(node: SceneNode): JsonObject {
 	assignSection(data, "geometry", pickNodeProps(node, GEOMETRY_KEYS));
 	assignSection(data, "appearance", pickNodeProps(node, APPEARANCE_KEYS));
 	assignSection(data, "layout", pickNodeProps(node, LAYOUT_KEYS));
-	assignSection(data, "autoLayoutChild", pickNodeProps(node, AUTO_LAYOUT_CHILD_KEYS));
+	assignSection(
+		data,
+		"autoLayoutChild",
+		pickNodeProps(node, AUTO_LAYOUT_CHILD_KEYS),
+	);
 	assignSection(data, "shape", pickNodeProps(node, SHAPE_KEYS));
 	assignSection(data, "prototype", pickNodeProps(node, PROTOTYPE_KEYS));
 	assignSection(data, "exports", pickNodeProps(node, EXPORT_KEYS));
@@ -520,7 +532,11 @@ function createComponentNodeData(node: SceneNode): JsonObject {
 	}
 
 	if ("scaleFactor" in node) {
-		assignValue(componentData, "scaleFactor", sanitizeValue(node.scaleFactor));
+		assignValue(
+			componentData,
+			"scaleFactor",
+			sanitizeValue(node.scaleFactor),
+		);
 	}
 
 	if ("isExposedInstance" in node) {
@@ -629,10 +645,7 @@ function countSerializedNodes(nodes: readonly SelectionNodeSnapshot[]): number {
 	return total;
 }
 
-function pickNodeProps(
-	node: SceneNode,
-	keys: readonly string[],
-): JsonObject {
+function pickNodeProps(node: SceneNode, keys: readonly string[]): JsonObject {
 	const result: JsonObject = {};
 
 	for (const key of keys) {
@@ -788,7 +801,12 @@ function roundNumber(value: number): number {
 	return Math.round(value * NUMBER_PRECISION) / NUMBER_PRECISION;
 }
 
-function rgbToHex(color: { r: number; g: number; b: number; a?: number }): string {
+function rgbToHex(color: {
+	r: number;
+	g: number;
+	b: number;
+	a?: number;
+}): string {
 	const channels = [color.r, color.g, color.b].map((channel) =>
 		toHexChannel(channel),
 	);
@@ -834,7 +852,9 @@ function isColorRecord(value: unknown): value is {
 }
 
 function isSceneNode(value: BaseNode | null): value is SceneNode {
-	return value !== null && "id" in value && "name" in value && "type" in value;
+	return (
+		value !== null && "id" in value && "name" in value && "type" in value
+	);
 }
 
 function truncate(value: string, maxLength: number): string {

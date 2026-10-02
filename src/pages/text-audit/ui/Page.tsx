@@ -82,10 +82,7 @@ export function TextAuditPage(props: Props): React.JSX.Element {
 					<TabsTrigger value="inspector">Inspector</TabsTrigger>
 					<TabsTrigger value="misc">Misc</TabsTrigger>
 				</TabsList>
-				<TabsContent
-					value="textlets"
-					className="flex flex-col gap-3"
-				>
+				<TabsContent value="textlets" className="flex flex-col gap-3">
 					<TextletBrowser
 						model={props.model}
 						searchQuery={searchQuery}
@@ -96,10 +93,7 @@ export function TextAuditPage(props: Props): React.JSX.Element {
 						onSetPropertyEnabled={props.onSetPropertyEnabled}
 					/>
 				</TabsContent>
-				<TabsContent
-					value="inspector"
-					className="flex flex-col gap-3"
-				>
+				<TabsContent value="inspector" className="flex flex-col gap-3">
 					<TextletBrowser
 						model={props.inspectorModel}
 						searchQuery={inspectorSearchQuery}
@@ -110,10 +104,7 @@ export function TextAuditPage(props: Props): React.JSX.Element {
 						onSetPropertyEnabled={props.onSetPropertyEnabled}
 					/>
 				</TabsContent>
-				<TabsContent
-					value="misc"
-					className="flex flex-col gap-3"
-				>
+				<TabsContent value="misc" className="flex flex-col gap-3">
 					<TextAuditSummary model={props.model} />
 					<div className="flex flex-col gap-1.5">
 						<div className="flex flex-wrap gap-2">
@@ -148,7 +139,9 @@ export function TextAuditPage(props: Props): React.JSX.Element {
 										: "Lock selection updates"
 								}
 								onClick={() => {
-									props.onSetSelectionLocked(!props.isSelectionLocked);
+									props.onSetSelectionLocked(
+										!props.isSelectionLocked,
+									);
 								}}
 							>
 								{props.isSelectionLocked ? (
@@ -237,19 +230,25 @@ function TextletBrowser(props: TextletBrowserProps): React.JSX.Element {
 							key={propertyName}
 							type="button"
 							role="switch"
-							aria-checked={props.selectedPropertyNames.has(propertyName)}
+							aria-checked={props.selectedPropertyNames.has(
+								propertyName,
+							)}
 							aria-label={`Toggle ${propertyName}`}
 							className="inline-flex h-6 items-center gap-1.5 rounded-md border border-input bg-transparent px-2 text-[0.625rem] font-medium text-foreground transition-colors hover:bg-muted focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
 							title={propertyName}
 							onClick={() => {
 								props.onSetPropertyEnabled(
 									propertyName,
-									!props.selectedPropertyNames.has(propertyName),
+									!props.selectedPropertyNames.has(
+										propertyName,
+									),
 								);
 							}}
 						>
 							<Switch
-								checked={props.selectedPropertyNames.has(propertyName)}
+								checked={props.selectedPropertyNames.has(
+									propertyName,
+								)}
 								aria-hidden="true"
 							/>
 							<span>{propertyName}</span>
@@ -267,7 +266,9 @@ function TextletBrowser(props: TextletBrowserProps): React.JSX.Element {
 								{index === 0 ? null : <Separator />}
 								<TextletCard
 									card={card}
-									selectedPropertyNames={props.selectedPropertyNames}
+									selectedPropertyNames={
+										props.selectedPropertyNames
+									}
 								/>
 							</React.Fragment>
 						))}
@@ -317,7 +318,8 @@ function getTextletsEmptyState(
 	if (input.status === "Select one or more layers containing text.") {
 		return {
 			title: "Nothing selected",
-			description: "Select one or more layers containing text to audit textlets.",
+			description:
+				"Select one or more layers containing text to audit textlets.",
 		};
 	}
 
@@ -349,7 +351,10 @@ function getInspectorEmptyState(
 		};
 	}
 
-	if (input.status === "Select a layer inside a marked frame group to inspect textlets.") {
+	if (
+		input.status ===
+		"Select a layer inside a marked frame group to inspect textlets."
+	) {
 		return {
 			title: "Nothing selected",
 			description:
@@ -359,7 +364,6 @@ function getInspectorEmptyState(
 
 	return {
 		title: "No inspected textlets",
-		description:
-			"No frame-group textlets matched the current selection.",
+		description: "No frame-group textlets matched the current selection.",
 	};
 }

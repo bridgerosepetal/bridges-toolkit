@@ -12,7 +12,9 @@ export function Tab(props: Props): React.JSX.Element {
 	const className = createClassNameBuilder("tab");
 	const tabIndex = props.isSelected ? 0 : -1;
 
-	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+	const handleKeyDown = (
+		event: React.KeyboardEvent<HTMLDivElement>,
+	): void => {
 		if (event.key !== "Enter" && event.key !== " ") {
 			return;
 		}

@@ -20,11 +20,7 @@ export function buildCandidateGroups(
 	const groups: Array<CandidateGroup> = [];
 
 	for (const member of members) {
-		const bestGroup = findBestGroup(
-			groups,
-			member,
-			config,
-		);
+		const bestGroup = findBestGroup(groups, member, config);
 
 		if (bestGroup === undefined) {
 			groups.push({
@@ -67,7 +63,10 @@ function toCandidateMember(node: ExtractedTextNode): CandidateMember | null {
 	};
 }
 
-function compareCandidateMembers(a: CandidateMember, b: CandidateMember): number {
+function compareCandidateMembers(
+	a: CandidateMember,
+	b: CandidateMember,
+): number {
 	return (
 		a.normalizedText.localeCompare(b.normalizedText) ||
 		a.node.frameId.localeCompare(b.node.frameId) ||
@@ -90,7 +89,10 @@ function findBestGroup(
 			continue;
 		}
 
-		const frameGroupDistance = getFrameGroupTreeDepthDistance(group, member);
+		const frameGroupDistance = getFrameGroupTreeDepthDistance(
+			group,
+			member,
+		);
 		const score = calculateStringSimilarity(
 			member.normalizedText,
 			group.representativeNormalizedText,
@@ -104,7 +106,10 @@ function findBestGroup(
 			continue;
 		}
 
-		if (score === bestScore && frameGroupDistance >= bestFrameGroupDistance) {
+		if (
+			score === bestScore &&
+			frameGroupDistance >= bestFrameGroupDistance
+		) {
 			continue;
 		}
 
@@ -145,6 +150,7 @@ function updateFrameGroupTreeDepthCentroid(
 	const previousCount = count - 1;
 
 	group.frameGroupTreeDepth =
-		(group.frameGroupTreeDepth * previousCount + member.frameGroupTreeDepth) /
+		(group.frameGroupTreeDepth * previousCount +
+			member.frameGroupTreeDepth) /
 		count;
 }

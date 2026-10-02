@@ -1,6 +1,9 @@
 import React from "react";
 import { createClassNameBuilder } from "@shared/lib/createClassNameBuilder";
-import { IconCssLoc, type CssLocPropertyName } from "../icon-css-loc/IconCssLoc";
+import {
+	IconCssLoc,
+	type CssLocPropertyName,
+} from "../icon-css-loc/IconCssLoc";
 
 export type Props = {
 	name: CssLocPropertyName;
@@ -23,4 +26,3 @@ export function CssProp(props: Props): React.JSX.Element {
 		</div>
 	);
 }
-

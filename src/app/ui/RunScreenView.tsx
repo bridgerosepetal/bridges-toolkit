@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-	Console,
-	type ConsoleLine,
-} from "@shared/ui/console/Console";
+import { Console, type ConsoleLine } from "@shared/ui/console/Console";
 import { Footer } from "@widgets/footer/ui/Footer";
 import { Header } from "@widgets/header/ui/Header";
 import { ButtonTurn } from "@shared/ui/button-turn/ButtonTurn";

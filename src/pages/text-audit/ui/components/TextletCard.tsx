@@ -18,7 +18,9 @@ export function TextletCard(props: Props): React.JSX.Element {
 	return (
 		<Card className="gap-2 overflow-visible bg-transparent py-0 ring-0">
 			<CardHeader className="flex flex-row items-start justify-between gap-3 px-0">
-				<CardTitle className="font-heading">{props.card.title}</CardTitle>
+				<CardTitle className="font-heading">
+					{props.card.title}
+				</CardTitle>
 				<span className="shrink-0 text-xs/relaxed text-muted-foreground">
 					{props.card.info}
 				</span>
@@ -32,14 +34,18 @@ export function TextletCard(props: Props): React.JSX.Element {
 						>
 							{variant.properties
 								.filter((property) =>
-									props.selectedPropertyNames.has(property.name),
+									props.selectedPropertyNames.has(
+										property.name,
+									),
 								)
 								.map((property) => (
 									<CssProp
 										key={`${variant.id}-${property.name}`}
 										name={property.name}
 										text={property.value}
-										isUnderlined={property.isSharedAcrossVariants}
+										isUnderlined={
+											property.isSharedAcrossVariants
+										}
 									/>
 								))}
 							<p className="mt-1 flex w-full flex-col gap-0.5 border-t border-border pt-1">

@@ -42,9 +42,9 @@ describe("auditTextlets", () => {
 			createNode("Cancel", { y: 80 }),
 		]);
 
-		expect(result.textlets.map((textlet) => textlet.instances.length)).toEqual([
-			1, 2,
-		]);
+		expect(
+			result.textlets.map((textlet) => textlet.instances.length),
+		).toEqual([1, 2]);
 		expect(result.stats.totalTextlets).toBe(2);
 		expect(result.stats.totalInstances).toBe(3);
 	});
@@ -97,7 +97,9 @@ describe("auditTextlets", () => {
 
 	it("only compares the configured style properties", () => {
 		const nodes = [
-			createNode("Total", { style: { "font-size": 16, "font-weight": 400 } }),
+			createNode("Total", {
+				style: { "font-size": 16, "font-weight": 400 },
+			}),
 			createNode("Total", {
 				style: { "font-size": 16, "font-weight": 700 },
 				y: 40,

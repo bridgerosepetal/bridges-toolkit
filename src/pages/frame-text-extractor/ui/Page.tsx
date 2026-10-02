@@ -13,7 +13,10 @@ import {
 	EmptyStateHeader,
 	EmptyStateTitle,
 } from "@shared/ui/shadcn/empty-state";
-import type { ExtractedFrameText, FrameTextSnapshot } from "@features/selection-inspector/model/get-frame-text-snapshot";
+import type {
+	ExtractedFrameText,
+	FrameTextSnapshot,
+} from "@features/selection-inspector/model/get-frame-text-snapshot";
 export type Props = {
 	status: string;
 	snapshot: FrameTextSnapshot | null;
@@ -55,7 +58,8 @@ export function FrameTextExtractorPage(props: Props): React.JSX.Element {
 							<EmptyStateHeader>
 								<EmptyStateTitle>No text found</EmptyStateTitle>
 								<EmptyStateDescription>
-									Select one or more frames to extract text recursively.
+									Select one or more frames to extract text
+									recursively.
 								</EmptyStateDescription>
 							</EmptyStateHeader>
 						</EmptyState>
@@ -71,9 +75,12 @@ export function FrameTextExtractorPage(props: Props): React.JSX.Element {
 					{firstFrame === null ? (
 						<EmptyState className="min-h-24">
 							<EmptyStateHeader>
-								<EmptyStateTitle>No frames selected</EmptyStateTitle>
+								<EmptyStateTitle>
+									No frames selected
+								</EmptyStateTitle>
 								<EmptyStateDescription>
-									Select one or more frames to inspect frame metadata.
+									Select one or more frames to inspect frame
+									metadata.
 								</EmptyStateDescription>
 							</EmptyStateHeader>
 						</EmptyState>
@@ -83,7 +90,10 @@ export function FrameTextExtractorPage(props: Props): React.JSX.Element {
 								label="Selected Frames"
 								value={String(frames.length)}
 							/>
-							<InfoRow label="First Frame" value={firstFrame.name} />
+							<InfoRow
+								label="First Frame"
+								value={firstFrame.name}
+							/>
 							<InfoRow label="Frame Id" value={firstFrame.id} />
 							<InfoRow
 								label="Size"

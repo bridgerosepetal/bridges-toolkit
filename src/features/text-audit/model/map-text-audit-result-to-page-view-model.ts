@@ -65,7 +65,10 @@ function mapVariant(
 	return {
 		id: variant.id,
 		properties: PROPERTY_ORDER.map((propertyName) => {
-			const formattedValue = formatStyleValue(propertyName, variant.style);
+			const formattedValue = formatStyleValue(
+				propertyName,
+				variant.style,
+			);
 
 			return {
 				name: propertyName,

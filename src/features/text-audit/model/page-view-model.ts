@@ -1,6 +1,4 @@
-import type {
-	SupportedTextAuditStylePropertyName,
-} from "./types";
+import type { SupportedTextAuditStylePropertyName } from "./types";
 
 export type TextAuditLocItemViewModel = {
 	name: SupportedTextAuditStylePropertyName;

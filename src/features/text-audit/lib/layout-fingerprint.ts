@@ -1,7 +1,8 @@
 import type { ExtractedTextNode } from "../model/types";
 
 export function createLayoutFingerprint(node: ExtractedTextNode): string {
-	const centerXRatio = (node.x + node.width / 2) / Math.max(node.frameWidth, 1);
+	const centerXRatio =
+		(node.x + node.width / 2) / Math.max(node.frameWidth, 1);
 	const centerYRatio =
 		(node.y + node.height / 2) / Math.max(node.frameHeight, 1);
 
@@ -10,7 +11,11 @@ export function createLayoutFingerprint(node: ExtractedTextNode): string {
 		"center",
 		"right",
 	]);
-	const verticalBucket = bucketAxis(centerYRatio, ["top", "middle", "bottom"]);
+	const verticalBucket = bucketAxis(centerYRatio, [
+		"top",
+		"middle",
+		"bottom",
+	]);
 	const parentKey = node.context?.parentPath?.join("/") ?? "__root__";
 
 	return `${horizontalBucket}|${verticalBucket}|${parentKey}`;

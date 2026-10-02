@@ -41,7 +41,9 @@ export function VariantPairsAccordion(props: Props): React.JSX.Element {
 			<CardHeader>
 				<CardTitle className="flex items-center justify-between gap-2">
 					<span>Variant Pairs</span>
-					<span className="text-muted-foreground">{pairs.length}</span>
+					<span className="text-muted-foreground">
+						{pairs.length}
+					</span>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
@@ -55,7 +57,9 @@ export function VariantPairsAccordion(props: Props): React.JSX.Element {
 							<VariantPairCard
 								key={pair.id}
 								pair={pair}
-								selectedPropertyNames={props.selectedPropertyNames}
+								selectedPropertyNames={
+									props.selectedPropertyNames
+								}
 							/>
 						))}
 					</div>
@@ -97,7 +101,9 @@ function VariantPairCard(props: VariantPairCardProps): React.JSX.Element {
 							<PairVariantBlock
 								key={variant.id}
 								variant={variant}
-								selectedPropertyNames={props.selectedPropertyNames}
+								selectedPropertyNames={
+									props.selectedPropertyNames
+								}
 							/>
 						))}
 					</div>

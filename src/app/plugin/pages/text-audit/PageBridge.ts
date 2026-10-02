@@ -39,7 +39,8 @@ function createTextAuditPageBridge(
 		options: { bypassCache?: boolean } = {},
 	): Array<ExtractedTextNode> => {
 		const key = getSelectionKey(selection);
-		const cached = options.bypassCache === true ? undefined : cache.get(key);
+		const cached =
+			options.bypassCache === true ? undefined : cache.get(key);
 
 		if (cached !== undefined) {
 			cache.delete(key);
@@ -126,7 +127,9 @@ function createTextAuditPageBridge(
 
 	const postTextAuditFrameGroupMarkStatus = (): void => {
 		const selection = figma.currentPage.selection;
-		const frameLikeSelection = selection.filter((node) => isFrameLikeNode(node));
+		const frameLikeSelection = selection.filter((node) =>
+			isFrameLikeNode(node),
+		);
 		const isMarked =
 			frameLikeSelection.length > 0 &&
 			frameLikeSelection.every(isTextAuditFrameGroupMarked);

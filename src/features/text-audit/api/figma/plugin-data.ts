@@ -32,10 +32,7 @@ export function setTextAuditFrameGroupId(
 	node: PluginDataNode,
 	frameGroupId: string,
 ): void {
-	node.setPluginData(
-		TEXT_AUDIT_FRAME_GROUP_ID_PLUGIN_DATA_KEY,
-		frameGroupId,
-	);
+	node.setPluginData(TEXT_AUDIT_FRAME_GROUP_ID_PLUGIN_DATA_KEY, frameGroupId);
 	node.setPluginData(LEGACY_SCREEN_MARK_PLUGIN_DATA_KEY, "");
 	node.setPluginData(LEGACY_SECTION_ROLE_ID_PLUGIN_DATA_KEY, "");
 }

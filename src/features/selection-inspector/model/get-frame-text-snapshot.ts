@@ -139,8 +139,7 @@ function mapFrameForExport(
 		return null;
 	}
 
-	const exportedFrame: FrameTextExportNode = {
-	};
+	const exportedFrame: FrameTextExportNode = {};
 	if (hasText) {
 		exportedFrame.text = frame.text;
 	}

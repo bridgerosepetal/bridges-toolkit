@@ -60,16 +60,20 @@ You do not need to hardcode ids in `run-screen.ts` or `RunScreenView.tsx` anymor
 You still need to register the page module in the registries:
 
 1. `src/app/pages/page-config-registry.ts`
+
 - add your `PAGE_CONFIG`
 
 2. `src/app/pages/page-ui-registry.tsx`
+
 - add a runtime factory for the page
 - this is where page component + controller are connected
 
 3. `src/app/plugin/pages/page-bridge-registry.ts`
+
 - add `{ id: PAGE_CONFIG.id, createPageBridge }`
 
 4. `src/app/UiEntry.ts` (only if page has CSS)
+
 - import your page CSS
 
 ## Why This Is Better
@@ -84,18 +88,22 @@ You still need to register the page module in the registries:
 If a page needs data from the Figma main thread:
 
 1. Update `src/shared/contracts/messages.ts`
+
 - add request/response message types
 - update `isUiToMainMessage(...)`
 
 2. Update `src/app/ui/ui-bridge.ts`
+
 - add a request helper
 - update incoming message guard (`isMainToUiMessage`)
 
 3. Implement plugin page bridge logic
+
 - read Figma state
 - post typed message back to UI
 
 4. Handle the message in that page controller
+
 - update page state
 - call `render()`
 

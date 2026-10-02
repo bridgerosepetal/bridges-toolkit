@@ -36,9 +36,7 @@ type Controller = PageController & {
 	getActions: (render: Render) => Actions;
 };
 
-function createFrameTextExtractorPageController(
-	bridge: UiBridge,
-): Controller {
+function createFrameTextExtractorPageController(bridge: UiBridge): Controller {
 	const state: State = {
 		status: "Idle",
 		snapshot: null,
@@ -57,7 +55,9 @@ function createFrameTextExtractorPageController(
 
 			if (pageMessage.type === "FRAME_TEXT_SNAPSHOT") {
 				state.snapshot = pageMessage.snapshot;
-				const exportSnapshot = createFrameTextExport(pageMessage.snapshot);
+				const exportSnapshot = createFrameTextExport(
+					pageMessage.snapshot,
+				);
 				if (pageMessage.snapshot.frames.length === 0) {
 					state.status = "Select at least one frame.";
 				} else if (exportSnapshot.frames.length === 0) {
@@ -92,12 +92,15 @@ function createFrameTextExtractorPageController(
 						state.snapshot === null ||
 						state.snapshot.frames.length === 0
 					) {
-						state.status = "Nothing to copy. Select at least one frame.";
+						state.status =
+							"Nothing to copy. Select at least one frame.";
 						render();
 						return;
 					}
 
-					const exportSnapshot = createFrameTextExport(state.snapshot);
+					const exportSnapshot = createFrameTextExport(
+						state.snapshot,
+					);
 					if (exportSnapshot.frames.length === 0) {
 						state.status = "No extracted text to copy.";
 						render();
@@ -106,17 +109,14 @@ function createFrameTextExtractorPageController(
 
 					try {
 						await copyTextToClipboard(
-							JSON.stringify(
-								exportSnapshot,
-								null,
-								2,
-							),
+							JSON.stringify(exportSnapshot, null, 2),
 						);
 						state.status = "Copied extracted text JSON.";
 						render();
 					} catch (error) {
 						console.error("[ui] frame text copy failed", error);
-						state.status = "Copy failed. Check browser permissions.";
+						state.status =
+							"Copy failed. Check browser permissions.";
 						render();
 					}
 				},

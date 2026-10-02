@@ -16,7 +16,10 @@ export function auditTextlets(
 	const resolvedConfig = resolveTextAuditConfig(config);
 	const candidateGroups = buildCandidateGroups(nodes, resolvedConfig);
 	const refinedGroups = refineDuplicateCandidates(candidateGroups);
-	const textlets = clusterVariantsWithinTextlets(refinedGroups, resolvedConfig);
+	const textlets = clusterVariantsWithinTextlets(
+		refinedGroups,
+		resolvedConfig,
+	);
 
 	return {
 		config: resolvedConfig,
@@ -31,7 +34,8 @@ function buildStats(
 ): TextAuditResult["stats"] {
 	return {
 		totalInputNodes: nodes.length,
-		totalTextNodes: nodes.filter((node) => node.text.trim().length > 0).length,
+		totalTextNodes: nodes.filter((node) => node.text.trim().length > 0)
+			.length,
 		totalTextlets: textlets.length,
 		totalVariants: textlets.reduce(
 			(total, textlet) => total + textlet.uniqueVariantsCount,
